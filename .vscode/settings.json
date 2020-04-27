@@ -1,0 +1,10 @@
+{
+    "files.exclude": {
+        "**/*.obj": true,
+        "**/*.idb": true,
+        "**/*.pdb": true,
+        "**/*.dblite": true,
+        "**/*.os": true,
+        "**/.gdignore": true
+    }
+}
