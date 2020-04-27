@@ -1,4 +1,4 @@
-# Godot CPP Bindings Helper Utils
+# Godot CPP Bindings Helper Tools
 
 A collection of files to help starting a new GDNative Lib for Godot with the Godot-cpp bindings
 
