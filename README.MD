@@ -71,11 +71,15 @@ python release.py
 ```
 
 ### Where are the libs?
-When you compile your lib will be in the direcory of your project /bin/win64 for windows and /bin/x11 for linux you can then procced and create the GDNLib file and the GDNS file in Godot to use.
+When you compile your lib will be in the direcory of your project /bin/win64 for windows and /bin/x11
 
+### Where are the scripts?
+When you use new_godot_class a gdnlib file is created in the root folder of your godot project (the parent of the src folder). A file named gdlibrary.gdnlib is created with the links to the libs.
+Another folder is created in the root folder named scripts. Inside there .gdns files are created with the name of your class name (lower case). For example enemy.gdns , this file can be attached on an object to be used.
 
-### To do :
-In future version GDNLIB and GDNS files will be automatically created when new_godot_class is called.
+### To do:
+Handle inheritance.
+
 
 #### The SConstruct file is a modified version of this file:
 https://docs.godotengine.org/en/3.2/_downloads/bac79b8996cc2de2ada1a4a6a11e428d/SConstruct

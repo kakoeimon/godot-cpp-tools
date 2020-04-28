@@ -58,12 +58,29 @@ cpp.write("void " + class_name + "::_ready() {\n\n}\n")
 cpp.close()
 ######### CPP END #########
 
+######### GDNS START #########
+if not path.exists("../scripts"):
+    scripts_path = os.path.abspath(os.getcwd())
+    scripts_path = os.path.abspath(os.path.join(scripts_path, os.pardir))
+    scripts_path = os.path.abspath(os.path.join(scripts_path, "scripts"))
+    os.mkdir(scripts_path)
+
+gdn = open("../scripts/" + class_name.lower() + ".gdns", "w")
+gdn.write("[gd_resource type=\"NativeScript\" load_steps=2 format=2]\n\n")
+gdn.write("[ext_resource path=\"res://gdlibrary.gdnlib\" type=\"GDNativeLibrary\" id=1]\n\n")
+gdn.write("[resource]\n")
+gdn.write("class_name = \"" + class_name + "\"\n")
+gdn.write("library = ExtResource( 1 )\n")
+
+gdn.close()
+######### GDNS END #########
+
 ######## gdlibrary.cpp START ##########
 gd = open("gdlibrary.cpp", "r")
 h_file = "#include \"" + h_file + "\""
 for line in gd:
     if h_file in line:
-        print(h_file + " exists in the gdlibrary.\n")
+        print(h_file + " exists in the gdlibrary.")
         print("gdlibrary.cpp have not been modified.")
         exit(0)
 
@@ -79,3 +96,28 @@ for linenum, line in enumerate( gd ):
     print(line, end='')
 
 gd.close()
+
+########## gdlibrary.cpp END ########
+
+########## GDNLIB START ###########
+
+gdnlib_file = "../gdlibrary.gdnlib"
+
+if not path.exists(gdnlib_file):
+    gdnlib = open(gdnlib_file, "w")
+
+    gdnlib.write("[general]\n\n")
+    gdnlib.write("singleton=false\n")
+    gdnlib.write("load_once=true\n")
+    gdnlib.write("symbol_prefix=\"godot_\"\n")
+    gdnlib.write("reloadable=true\n\n")
+    gdnlib.write("[entry]\n\n")
+    gdnlib.write("Windows.64=\"res://bin/win64/libgdlibrary.dll\"\n")
+    gdnlib.write("X11.64=\"res://bin/x11/libgdlibrary.so\"\n")
+    gdnlib.write("\n[dependencies]\n\n")
+    gdnlib.write("Windows.64=[  ]\n")
+    gdnlib.write("X11.64=[  ]\n")
+
+    gdnlib.close()
+
+########## GDNLIB END ###########
