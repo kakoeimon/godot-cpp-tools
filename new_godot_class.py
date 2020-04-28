@@ -24,8 +24,11 @@ h = open(h_file, "w")
 
 h.write("#ifndef " + class_name.upper() + "_H\n")
 h.write("#define " + class_name.upper() + "_H\n\n")
-h.write("#include <Godot.hpp>\n")
-h.write("#include <" + godot_class + ".hpp>\n\n")
+if not path.exists(godot_class.lower() + ".h"):
+    h.write("#include <Godot.hpp>\n")
+    h.write("#include <" + godot_class + ".hpp>\n\n")
+else:
+    h.write("#include \"" + godot_class.lower() + ".h\"\n\n")
 h.write("namespace godot {\n\n")
 h.write("class " + class_name + " : public " + godot_class + " {\n")
 h.write(tab + "GODOT_CLASS(" + class_name + ", " + godot_class + ")\n\n")

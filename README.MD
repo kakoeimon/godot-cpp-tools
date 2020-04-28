@@ -77,8 +77,30 @@ When you compile your lib will be in the direcory of your project /bin/win64 for
 When you use new_godot_class a gdnlib file is created in the root folder of your godot project (the parent of the src folder). A file named gdlibrary.gdnlib is created with the links to the libs.
 Another folder is created in the root folder named scripts. Inside there .gdns files are created with the name of your class name (lower case). For example enemy.gdns , this file can be attached on an object to be used.
 
-### To do:
-Handle inheritance.
+### Limitations
+#### Almost no Mac
+.vscode/settings.json do not take care of any files that may be created by mac so those files will be visible in the VSCode Explorer.
+Also the gdlibrary.gdnlib do not take care of possible mac libs.
+
+#### No Android
+The SConstruct do not have an option for Android build.
+So limitations for Mac are applied and for Android.
+
+#### 32bit
+There is no support for 32bit. This comes from the SConstruct.
+
+### Usage and things to keep in Mind
+When you want to create a new class just type :
+```
+python new_godot_class MyClass ClassToInherit
+```
+The script will generate the .cpp and .h files for MyClass in lower case and will fill the basic code.
+The script does not look up on any list with the Godot classes but it just searches for a .h file with the name of the ClassToInherit (in lower case). If it finds one then it #includes this file. If no .h file is found then it believes that it is a Godot header. This way it can be used for inheritance of custom classes too.
+
+The script checks for an existing .cpp or .h files with the name of MyClass (in lower case) if it finds one then it just exits.
+
+If you want to remove a class you made you will have to do it by hand. This means you will have to delete the .h .cpp .gdns files and remove the #include header and register_class from the gdlibrary.gdnlib
+
 
 
 #### The SConstruct file is a modified version of this file:
